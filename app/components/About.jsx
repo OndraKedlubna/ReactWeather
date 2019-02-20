@@ -8,9 +8,12 @@ var React = require('react');
 //     }
 // });
 
-var About =  (props) => {
+var About = (props) => {
     return (
-        <h3>About component</h3>
+        <div>
+            <h3>About component</h3>
+            <p>To jsem zpatlal</p>
+        </div>
     )
 };
 
