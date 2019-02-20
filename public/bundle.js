@@ -25075,7 +25075,7 @@
 	            if (isLoading) {
 	                return React.createElement(
 	                    'h3',
-	                    null,
+	                    { className: 'text-center' },
 	                    'Fetching weather...'
 	                );
 	            } else if (temp && location) {
@@ -25087,9 +25087,9 @@
 	            'div',
 	            null,
 	            React.createElement(
-	                'h3',
-	                null,
-	                'Weather component'
+	                'h1',
+	                { className: 'text-center' },
+	                'Get Weather'
 	            ),
 	            React.createElement(WeatherForm, { onSearch: this.handleSearch }),
 	            renderMessage()
@@ -25128,7 +25128,7 @@
 	                React.createElement('input', { type: 'text', ref: 'location' }),
 	                React.createElement(
 	                    'button',
-	                    null,
+	                    { className: 'button expanded hollow' },
 	                    'Get Weather'
 	                )
 	            )
@@ -25142,7 +25142,7 @@
 /* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var React = __webpack_require__(8);
 
@@ -25151,14 +25151,14 @@
 	        location = _ref.location;
 
 	    return React.createElement(
-	        'div',
+	        "div",
 	        null,
 	        React.createElement(
-	            'h3',
-	            null,
-	            'It is ',
+	            "h3",
+	            { className: "text-center" },
+	            "It is ",
 	            temperature,
-	            ' in ',
+	            " in ",
 	            location
 	        )
 	    );
@@ -26746,7 +26746,7 @@
 /* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var React = __webpack_require__(8);
 
@@ -26760,9 +26760,47 @@
 
 	var About = function About(props) {
 	    return React.createElement(
-	        'h3',
+	        "div",
 	        null,
-	        'About component'
+	        React.createElement(
+	            "h1",
+	            { className: "text-center" },
+	            "About"
+	        ),
+	        React.createElement(
+	            "p",
+	            null,
+	            "To jsem zpatlal. Je to s reactem. Snad je to na tom videt."
+	        ),
+	        React.createElement(
+	            "p",
+	            null,
+	            "Pouzite knihovny"
+	        ),
+	        React.createElement(
+	            "ul",
+	            null,
+	            React.createElement(
+	                "li",
+	                null,
+	                React.createElement(
+	                    "a",
+	                    { href: "https://facebook.github.io/react" },
+	                    "React"
+	                ),
+	                " - framework na javascript"
+	            ),
+	            React.createElement(
+	                "li",
+	                null,
+	                React.createElement(
+	                    "a",
+	                    { href: "https://openweathermap.org/" },
+	                    "Open weather map"
+	                ),
+	                " - api with weather"
+	            )
+	        )
 	    );
 	};
 
@@ -26786,7 +26824,7 @@
 	        React.createElement(
 	            'h1',
 	            { className: 'text-center' },
-	            'Example component'
+	            'Example'
 	        ),
 	        React.createElement(
 	            'p',
