@@ -11,7 +11,7 @@ var React = require('react');
 var About = (props) => {
     return (
         <div>
-            <h1 className="text-center">About</h1>
+            <h1 className="text-center page-title">About</h1>
             <p>To jsem zpatlal. Je to s reactem. Snad je to na tom videt.</p>
             <p>Pouzite knihovny</p>
             <ul>
