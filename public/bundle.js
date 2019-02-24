@@ -105,15 +105,16 @@
 
 	var Main = __webpack_require__(223);
 	var Weather = __webpack_require__(225);
-	var About = __webpack_require__(256);
-	var Example = __webpack_require__(257);
+	var About = __webpack_require__(257);
+	var Example = __webpack_require__(258);
 
 	//Load foundation
-	__webpack_require__(258);
+	__webpack_require__(259);
 	$(document).foundation();
 
 	//app css
-	__webpack_require__(262);
+	//require('style!css!applicationStyles');
+	__webpack_require__(263);
 
 	ReactDOM.render(React.createElement(
 	    Router,
@@ -24955,7 +24956,12 @@
 
 	    onSearch: function onSearch(e) {
 	        e.preventDefault();
-	        alert('Not implemented');
+	        var location = this.refs.location.value;
+	        var encodedLocation = encodeURIComponent(location);
+	        if (location.length > 0) {
+	            this.refs.location.value = '';
+	            window.location.hash = '#/?location=' + encodedLocation;
+	        }
 	    },
 	    render: function render() {
 	        return React.createElement(
@@ -25014,7 +25020,7 @@
 	                        React.createElement(
 	                            'li',
 	                            null,
-	                            React.createElement('input', { type: 'search', placeholder: 'Search by city' })
+	                            React.createElement('input', { type: 'search', ref: 'location', placeholder: 'Search by city' })
 	                        ),
 	                        React.createElement(
 	                            'li',
@@ -25054,7 +25060,9 @@
 	        var that = this;
 	        this.setState({
 	            isLoading: true,
-	            errorMessage: undefined
+	            errorMessage: undefined,
+	            location: undefined,
+	            temp: undefined
 	        });
 
 	        openWeatherMap.getTemp(location).then(function (temp) {
@@ -25073,6 +25081,20 @@
 	        //     location: location,
 	        //     temp: 23
 	        // })
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var location = this.props.location.query.location;
+	        if (location && location.length > 0) {
+	            this.handleSearch(location);
+	            window.location.hash = '#/';
+	        }
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+	        var location = newProps.location.query.location;
+	        if (location && location.length > 0) {
+	            this.handleSearch(location);
+	            window.location.hash = '#/';
+	        }
 	    },
 	    render: function render() {
 	        var _state = this.state,
@@ -26766,6 +26788,8 @@
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
 	var React = __webpack_require__(8);
+	var ReactDom = __webpack_require__(165);
+	var ReactDomServer = __webpack_require__(256);
 
 	var ErrorModal = React.createClass({
 	    displayName: 'ErrorModal',
@@ -26780,15 +26804,11 @@
 	        message: React.PropTypes.string.isRequired
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var modal = new Foundation.Reveal($('#error-modal'));
-	        modal.open();
-	    },
-	    render: function render() {
 	        var _props = this.props,
 	            title = _props.title,
 	            message = _props.message;
 
-	        return React.createElement(
+	        var modalMarkUp = React.createElement(
 	            'div',
 	            { id: 'error-modal', className: 'reveal tiny text-center', 'data-reveal': '' },
 	            React.createElement(
@@ -26811,6 +26831,15 @@
 	                )
 	            )
 	        );
+
+	        var $modal = $(ReactDomServer.renderToString(modalMarkUp));
+	        $(ReactDom.findDOMNode(this)).html($modal);
+
+	        var modal = new Foundation.Reveal($('#error-modal'));
+	        modal.open();
+	    },
+	    render: function render() {
+	        return React.createElement('div', null);
 	    }
 	});
 
@@ -26819,6 +26848,15 @@
 
 /***/ },
 /* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(155);
+
+
+/***/ },
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26882,7 +26920,7 @@
 	module.exports = About;
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26934,16 +26972,16 @@
 	module.exports = Example;
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(259);
+	var content = __webpack_require__(260);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(261)(content, {});
+	var update = __webpack_require__(262)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -26960,10 +26998,10 @@
 	}
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(260)();
+	exports = module.exports = __webpack_require__(261)();
 	// imports
 
 
@@ -26974,7 +27012,7 @@
 
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports) {
 
 	/*
@@ -27030,7 +27068,7 @@
 
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27284,23 +27322,23 @@
 
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(263);
+	var content = __webpack_require__(264);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(261)(content, {});
+	var update = __webpack_require__(262)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!../../node_modules/css-loader/index.js!./app.css", function() {
-				var newContent = require("!!../../node_modules/css-loader/index.js!./app.css");
+			module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/lib/loader.js!./app.scss", function() {
+				var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/lib/loader.js!./app.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -27310,15 +27348,15 @@
 	}
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(260)();
+	exports = module.exports = __webpack_require__(261)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".page-title{\r\n    margin-top: 2.5rem;\r\n    margin-bottom: 2.5rem;\r\n}\r\n\r\ninput[type=search] {\r\n    box-shadow: none;\r\n}", ""]);
+	exports.push([module.id, ".page-title {\n  color: #555;\n  margin-top: 2.5rem;\n  margin-bottom: 2.5rem; }\n\ninput[type=search] {\n  box-shadow: none; }\n", ""]);
 
 	// exports
 
